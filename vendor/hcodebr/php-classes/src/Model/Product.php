@@ -13,6 +13,19 @@ class Product extends Model{
 
 		return $sql->select("SELECT * FROM tb_products ORDER BY desproduct");
 	}
+
+	public static function checkList($list){
+
+		foreach ($list as &$row) {
+			
+			$p = new Product();
+			$p->setData($row);
+			$row = $p->getValues();
+		}
+
+		return $list;
+
+	}
 	//create save
 	public function save(){
 
@@ -107,7 +120,9 @@ class Product extends Model{
 			$this->getidproduct() . ".jpg";
 
 		imagejpeg($image, $dist);
+
 		imagedestroy($image);
+
 		$this->checkPhoto();
 	}
 }
